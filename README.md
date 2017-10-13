@@ -1,4 +1,4 @@
-# myOpticalMusicRecognition
+# notesReader
 
 Matlab (Python) app for music recognition
 
