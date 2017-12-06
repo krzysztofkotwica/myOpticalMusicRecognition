@@ -1,0 +1,25 @@
+data structure:
+notesShet
+    image (obrazek z arkuszem)
+        accolade[] (po dwie pieciolinie)
+            image (obrazek z akolada)
+            line[] -(dwie linie)
+                image (obrazek z linia)
+                note[]
+                    image (obrazek z nuta)
+                    sound (dzwiek ten zapis trzeba ustalic)
+                    countRows (ilosc czarnych pikseli w wierszach)
+                    countColumns (ilosc czarnych pikseli w kolumnach)
+                    ratioLeft (Stosunek zaciemninych pikseli po lewej do ilosci pikseli w ogonku)
+                    ratioRight (Stosunek zaciemninych pikseli po prawej do ilosci pikseli w ogonku)
+                    ratioLR (Stosunek zaciemnionych pikseli po obu stronach ogonka)
+                    type = 0 (Typ nuty
+                                  + 0 - nie sprawdzona 
+                                  + 999 - takt 
+                                  + -1 - nie rozpoznana 
+                                  + 1 - cala 
+                                  + 2 - polnota 
+                                  + 4 - cwiercnuta 
+                                  + 404 - cztery cwiartki etc.)
+            trebleLine = line[0]
+            bassLine = line[1]
