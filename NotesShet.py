@@ -1,3 +1,7 @@
+import numpy
+import cv2
+import math
+
 
 #i_picture - obraz wejsciowy (macierz 2d)
 def countBlackPixels(i_picture):
@@ -28,16 +32,44 @@ class Note:
     #ratioRight
     #ratioLR
     #type
+    
+    def calculateRatios(self):
+        stemBegin = 0
+        stemEnd = 0
+        tmpMaxBlackCount = max(self.countColumns)
+#        for i in range(1,self.width):
+#            if self.countColumns[i]>tmpMaxBlackCount/2:
+#                if stemBegin==0:
+#                    stemBegin = i
+#                else:
+#                    stemEnd = i
+        for i in range(1,self.width):
+            if self.countColumns[i]==tmpMaxBlackCount:
+                stemBegin = i-1
+                stemEnd = i+1
+        stemWidth = stemEnd - stemBegin
+        stemSize = sum(self.countColumns[stemBegin:stemEnd])
+        if stemSize>0:
+            self.ratioLeft = sum(self.countColumns[1:stemBegin])/stemSize
+            self.ratioRight = sum(self.countColumns[stemEnd:self.width])/stemSize
+            self.ratioLR= sum(self.countColumns[1:stemBegin])/sum(self.countColumns[stemEnd:self.width])
+        else:
+            self.type = -1
             
     def __init__(self, i_picture):
-        self.image = picture
-        height, width = i_picture.shape
+        self.image = i_picture
+        self.height, self.width = i_picture.shape
         self.countRows, self.countColumns = countBlackPixels(self.image)
         self.sound=0
         self.ratioLeft=0
         self.ratioRight=0
         self.ratioLR=0
         self.type=0
+        self.calculateRatios()
+        
+        
+
+        
         
 class Line:
     #image
@@ -64,7 +96,7 @@ class Line:
                 
         for iNote in range(0,len(notesLocations),2):
             tmp=self.image[0:height,(notesLocations[iNote]-1):(notesLocations[iNote+1]+1)]
-            self.note.append(tmp)
+            self.note.append(Note(tmp))
 
 class Accolade:
     #image
