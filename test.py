@@ -15,7 +15,7 @@ ns = NotesShet(img)
 fignumber = 0
 print(len(ns.accolade[1].line[1].note))
 
-''' for Acc in ns.accolade:
+for Acc in ns.accolade:
     plt.rcParams["figure.figsize"] = [2, 3]
     plt.imshow(Acc.image,cmap='gray' )
     plt.savefig('./figs/'+str(fignumber) + '.png')
@@ -32,5 +32,5 @@ print(len(ns.accolade[1].line[1].note))
             fignumber = fignumber +1
             s = 'ratioLeft = ' + str(Nt.ratioLeft) + '; ratioRight = ' +str(Nt.ratioRight) + '; ratioLR = ' +str(Nt.ratioLR) + '; type = '+str(Nt.type)
             print(s)
-             '''
+
 print('end')
