@@ -15,13 +15,13 @@ ns = NotesShet(img)
 fignumber = 0
 print(len(ns.accolade[1].line[1].note))
 
-''' for Acc in ns.accolade:
-    plt.rcParams["figure.figsize"] = [2, 3]
+for Acc in ns.accolade:
+    plt.rcParams["figure.figsize"] = [40, 60]
     plt.imshow(Acc.image,cmap='gray' )
     plt.savefig('./figs/'+str(fignumber) + '.png')
     fignumber = fignumber +1
     for Ln in Acc.line:
-        plt.rcParams["figure.figsize"] = [2, 3]
+        plt.rcParams["figure.figsize"] = [40, 60]
         plt.imshow(Ln.image,cmap='gray' )
         plt.savefig('./figs/'+str(fignumber) + '.png')
         fignumber = fignumber +1
@@ -30,7 +30,17 @@ print(len(ns.accolade[1].line[1].note))
             plt.imshow(Nt.image,cmap='gray' )
             plt.savefig('./figs/'+str(fignumber) + '.png')
             fignumber = fignumber +1
-            s = 'ratioLeft = ' + str(Nt.ratioLeft) + '; ratioRight = ' +str(Nt.ratioRight) + '; ratioLR = ' +str(Nt.ratioLR) + '; type = '+str(Nt.type)
+            s = 'id: '+str(fignumber-1)+' ratioLeft = ' + str(Nt.ratioLeft) + '; ratioRight = ' +str(Nt.ratioRight) + '; ratioLR = ' +str(Nt.ratioLR) + '; type = '+str(Nt.type)
             print(s)
-             '''
+            
+# print('-'+str(len(ns.accolade))+'count of accolades')
+# for Acc in ns.accolade:
+#     print('--'+str(len(Acc.line))+'count of lines in accolade')
+#     for Ln in Acc.line:
+#         print('---'+str(len(Ln.note))+'count of notes in line')
+#         for Nt in Ln.note:
+            
+#             s = 'ratioLeft = ' + str(Nt.ratioLeft) + '; ratioRight = ' +str(Nt.ratioRight) + '; ratioLR = ' +str(Nt.ratioLR) + '; type = '+str(Nt.type)
+#             #print(s)
+            
 print('end')

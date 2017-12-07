@@ -52,7 +52,10 @@ class Note:
         if stemSize>0:
             self.ratioLeft = sum(self.countColumns[1:stemBegin])/stemSize
             self.ratioRight = sum(self.countColumns[stemEnd:self.width])/stemSize
-            self.ratioLR= sum(self.countColumns[1:stemBegin])/sum(self.countColumns[stemEnd:self.width])
+            if stemEnd < self.width:
+              self.ratioLR= sum(self.countColumns[1:stemBegin])/sum(self.countColumns[stemEnd:self.width])
+            else:
+              self.ratioLR = -1
         else:
             self.type = -1
             
@@ -73,9 +76,10 @@ class Note:
         
 class Line:
     #image
-    note = []
+    
     
     def __init__(self, i_picture):
+        self.note = []
         self.image = i_picture
         height, width = i_picture.shape
         rowsBlackPixelCount, columnsBlacPixelsCount = countBlackPixels(self.image)
@@ -85,25 +89,35 @@ class Line:
         pixelVal = math.ceil(numpy.percentile(columnsBlacPixelsCount,25)) #math.ceil(numpy.mean(columnsBlacPixelsCount)) +1
     
         tmp=[0,0]
-    
+        noteBeg=0
+        noteEnd=0
+
         for iCol in range(1,width):
             if((columnsBlacPixelsCount[iCol]>pixelVal) and (columnsBlacPixelsCount[iCol-1]<=pixelVal)):
                 #tmp[0]=iCol
                 notesLocations.append(iCol)
+                #noteEnd=iCol
             if((columnsBlacPixelsCount[iCol-1]>pixelVal) and (columnsBlacPixelsCount[iCol]<=pixelVal)):
                 #tmp[1]=iCol
                 notesLocations.append(iCol)
-                
+                #noteBeg=iCol
+
+            if noteBeg>0 and noteEnd>0:
+                tmp=self.image[0:height,(noteEnd-1):(noteEnd+1)]
+                self.note.append(Note(tmp))
+                noteBeg=0
+                noteEnd=0
+
         for iNote in range(0,len(notesLocations),2):
             tmp=self.image[0:height,(notesLocations[iNote]-1):(notesLocations[iNote+1]+1)]
             self.note.append(Note(tmp))
 
 class Accolade:
     #image
-    line = []
+    
     
     def __init__(self, i_pictureWhole, i_pictureTreble, i_pictureBass):
-
+        self.line = []
         self.image = i_pictureWhole
         self.line.append(Line(i_pictureTreble))
         self.line.append(Line(i_pictureBass))        
@@ -113,9 +127,10 @@ class Accolade:
     
 class NotesShet:
     #image
-    accolade = []
+    
     
     def __init__(self, i_picture):
+        self.accolade = []
         self.image = i_picture
         height, width = i_picture.shape
         rowsBlackPixelCount, columnsBlacPixelsCount = countBlackPixels(self.image)
