@@ -17,7 +17,7 @@ print(len(ns.accolade[1].line[1].note))
 
 for Acc in ns.accolade:
     plt.rcParams["figure.figsize"] = [40, 60]
-    plt.imshow(Acc.image,cmap='gray' )
+    plt.imshow(Acc.image,cmap='gray')
     plt.savefig('./figs/'+str(fignumber) + '.png')
     fignumber = fignumber +1
     for Ln in Acc.line:
