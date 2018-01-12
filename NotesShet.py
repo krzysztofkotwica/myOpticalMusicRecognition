@@ -20,7 +20,6 @@ def countBlackPixels(i_picture):
                 columnsBlacPixelsCount[iCol]=columnsBlacPixelsCount[iCol]+1
                 
     return [rowsBlackPixelCount, columnsBlacPixelsCount]
-                
     
 
 class Note:
@@ -52,10 +51,11 @@ class Note:
         if stemSize>0:
             self.ratioLeft = sum(self.countColumns[1:stemBegin])/stemSize
             self.ratioRight = sum(self.countColumns[stemEnd:self.width])/stemSize
-            if stemEnd < self.width:
+            check = sum(self.countColumns[1:stemBegin]) > 0 and sum(self.countColumns[stemEnd:self.width]) > 0
+            if stemEnd < self.width and check:
               self.ratioLR= sum(self.countColumns[1:stemBegin])/sum(self.countColumns[stemEnd:self.width])
             else:
-              self.ratioLR = -1
+              self.ratioLR = 0
         else:
             self.type = -1
             
@@ -154,5 +154,4 @@ class NotesShet:
             pictureTreble=self.image[(linesLocation[iAccolade+0]-2*lineSpaces):(linesLocation[iAccolade+4]+2*lineSpaces),0:width]
             pictureBass = self.image[(linesLocation[iAccolade+5]-2*lineSpaces):(linesLocation[iAccolade+9]+2*lineSpaces),0:width]
             self.accolade.append(Accolade(pictureWhole,pictureTreble,pictureBass))
-        
         
